@@ -1,5 +1,7 @@
 # MathGL [![Build Status](https://travis-ci.org/go-gl/mathgl.svg?branch=master)](https://travis-ci.org/go-gl/mathgl) [![GoDoc](https://godoc.org/github.com/go-gl/mathgl?status.svg)](https://godoc.org/github.com/go-gl/mathgl)
 
+This is a folk for left-hand coordinate 3d math.
+
 This is a Go matrix and vector math library specialized for Open GL graphics capabilities.
 
 This package is made primarily with code generation for the basic vector and matrix operations, though and functionality beyond that is handwritten.
@@ -33,3 +35,4 @@ API-Breaking changes made for latest Go release
 -----------------------------------------------
 
 Removal of EulerToQuat; use AnglesToQuat with the order ZYX instead.
+
