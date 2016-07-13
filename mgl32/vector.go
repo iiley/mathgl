@@ -8,8 +8,9 @@
 package mgl32
 
 import (
-	"golang.org/x/image/math/f32"
 	"math"
+
+	"golang.org/x/image/math/f32"
 )
 
 type Vec2 f32.Vec2
@@ -123,16 +124,28 @@ func (v1 Vec2) Len() float32 {
 
 }
 
+//LenSq return the vector's length*length.
+func (v1 Vec2) LenSq() float32 {
+	return v1[0]*v1[0] + v1[1]*v1[1]
+}
+
+//IsZero return if the len == 0
+func (v1 Vec2) IsZero() bool {
+	return v1.LenSq() == 0
+}
+
 // Normalize normalizes the vector. Normalization is (1/|v|)*v,
 // making this equivalent to v.Scale(1/v.Len()). If the len is 0.0,
-// this function will return an infinite value for all elements due
-// to how floating point division works in Go (n/0.0 = math.Inf(Sign(n))).
+// this function will return itself with no modified
 //
 // Normalization makes a vector's Len become 1.0 (within the margin of floating point error),
 // while maintaining its directionality.
 //
 // (Can be seen here: http://play.golang.org/p/Aaj7SnbqIp )
 func (v1 Vec2) Normalize() Vec2 {
+	if v1.IsZero() { //if
+		return v1
+	}
 	l := 1.0 / v1.Len()
 	return Vec2{v1[0] * l, v1[1] * l}
 }
@@ -276,16 +289,28 @@ func (v1 Vec3) Len() float32 {
 
 }
 
+//LenSq return the vector's length*length.
+func (v1 Vec3) LenSq() float32 {
+	return v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]
+}
+
+//IsZero return if the Len is 0
+func (v1 Vec3) IsZero() bool {
+	return v1.LenSq() == 0
+}
+
 // Normalize normalizes the vector. Normalization is (1/|v|)*v,
 // making this equivalent to v.Scale(1/v.Len()). If the len is 0.0,
-// this function will return an infinite value for all elements due
-// to how floating point division works in Go (n/0.0 = math.Inf(Sign(n))).
+// this function will return itself with no modified
 //
 // Normalization makes a vector's Len become 1.0 (within the margin of floating point error),
 // while maintaining its directionality.
 //
 // (Can be seen here: http://play.golang.org/p/Aaj7SnbqIp )
 func (v1 Vec3) Normalize() Vec3 {
+	if v1.IsZero() {
+		return v1
+	}
 	l := 1.0 / v1.Len()
 	return Vec3{v1[0] * l, v1[1] * l, v1[2] * l}
 }
@@ -437,6 +462,16 @@ func (v1 Vec4) Len() float32 {
 
 }
 
+//LenSq return the vector's length*length.
+func (v1 Vec4) LenSq() float32 {
+	return v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2] + v1[3]*v1[3]
+}
+
+//IsZero return if the len == 0
+func (v1 Vec4) IsZero() bool {
+	return v1.LenSq() == 0
+}
+
 // Normalize normalizes the vector. Normalization is (1/|v|)*v,
 // making this equivalent to v.Scale(1/v.Len()). If the len is 0.0,
 // this function will return an infinite value for all elements due
@@ -447,6 +482,9 @@ func (v1 Vec4) Len() float32 {
 //
 // (Can be seen here: http://play.golang.org/p/Aaj7SnbqIp )
 func (v1 Vec4) Normalize() Vec4 {
+	if v1.IsZero() {
+		return v1
+	}
 	l := 1.0 / v1.Len()
 	return Vec4{v1[0] * l, v1[1] * l, v1[2] * l, v1[3] * l}
 }
